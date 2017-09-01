@@ -16,6 +16,16 @@ namespace Scavanger
             X = inX;
             Y = inY;
         }
+
+        public override int GetHashCode()
+        {
+            return Convert.ToInt32(X + "" + Y);
+        }
+
+        public override string ToString()
+        {
+            return "X is:" + X + " Y is:" + Y;
+        }
     }
 
     public class CoordinateLand
@@ -35,7 +45,7 @@ namespace Scavanger
             {
                 return false;
             }
-            else if (inLand.coordList.ContainsKey(inChar.characterCoord))
+            else if (inLand.coordList.ContainsKey(inChar.characterCoord.GetHashCode()))
             {
                 return true;
             }

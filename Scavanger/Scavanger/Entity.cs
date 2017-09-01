@@ -22,21 +22,12 @@ namespace Scavanger
             {
                 return name;
             }
-
-            public override int GetHashCode()
-            {
-                return Convert.ToInt32(characterCoord.X + "" + characterCoord.Y);
-            }
-
-            public override string ToString()
-            {
-                return ("Name:" + name + " X:" + characterCoord.X + " Y:" + characterCoord.Y);
-            }
         }
 
         public class Land
         {
-            public Dictionary<Coordinate, string> coordList = new Dictionary<Coordinate, string>();
+            public List<Character> charList = new List<Character>();
+            public Dictionary<int, string> coordList = new Dictionary<int, string>();
             public CoordinateLand coordLand;
 
             public readonly string landCharDefault;
@@ -55,21 +46,19 @@ namespace Scavanger
                     for (int x = 0; x < coordLand.GetXMax(); x++)
                     {
                         Scavanger.Coordinate coord = new Scavanger.Coordinate(x, y);
-                        coordList.Add(coord, landCharDefault);
-                        //coordList.TryGetValue(coord, out string val);
-                        //Console.WriteLine(val);
+                        coordList.Add(coord.GetHashCode(), landCharDefault);
                     }
                 }
             }
 
             public void Render()
             {
-                //Console.Clear();
+                Console.Clear();
                 for (int y = 0; y < coordLand.GetYMax(); y++)
                 {
                     for (int x = 0; x < coordLand.GetXMax(); x++)
                     {
-                        Console.WriteLine(coordList.ContainsKey(new Coordinate(x, y)));
+                        Console.BackgroundColor = ConsoleColor.Blue;
                         Console.Write(this.FetchSimbol(x, y));
                     }
                     Console.WriteLine();
@@ -82,21 +71,14 @@ namespace Scavanger
                 {
                     return false;
                 }
-                coordList.Add(key: inChar.characterCoord, value: inChar.GetName());
+                coordList.Add(key: inChar.characterCoord.GetHashCode(), value: inChar.GetName());
                 return true;
             }
 
             public string FetchSimbol(int coordInX, int coordInY)
             {
                 Coordinate coord = new Coordinate(coordInX, coordInY);
-                if (coordList.ContainsKey(coord))
-                {
-                    Console.WriteLine("coord found!");
-                }
-                coordList.TryGetValue(coord, out string value);
-                Console.WriteLine("X: " + coord.X);
-                Console.WriteLine("Y: " + coord.Y);
-                Console.WriteLine(value);
+                coordList.TryGetValue(coord.GetHashCode(), out string value);
                 return value;
             }
         }
