@@ -27,7 +27,7 @@ namespace Scavanger
         public class Land
         {
             public List<Character> charList = new List<Character>();
-            public Dictionary<int, string> coordList = new Dictionary<int, string>();
+            public Dictionary<int, string> coordDict = new Dictionary<int, string>();
             public CoordinateLand coordLand;
 
             public readonly string landCharDefault;
@@ -41,29 +41,17 @@ namespace Scavanger
 
             public void Init()
             {
-                for (int y = 0; y < coordLand.GetYMax(); y++)
+                for (int y = 0; y <= coordLand.GetYMax(); y++)
                 {
-                    for (int x = 0; x < coordLand.GetXMax(); x++)
+                    for (int x = 0; x <= coordLand.GetXMax(); x++)
                     {
                         Scavanger.Coordinate coord = new Scavanger.Coordinate(x, y);
-                        coordList.Add(coord.GetHashCode(), landCharDefault);
+                        coordDict.Add(coord.GetHashCode(), landCharDefault);
                     }
                 }
             }
 
-            public void Render()
-            {
-                Console.Clear();
-                for (int y = 0; y < coordLand.GetYMax(); y++)
-                {
-                    for (int x = 0; x < coordLand.GetXMax(); x++)
-                    {
-                        Console.BackgroundColor = ConsoleColor.Blue;
-                        Console.Write(this.FetchSimbol(x, y));
-                    }
-                    Console.WriteLine();
-                }
-            }
+
 
             public bool Add(Character inChar)
             {
@@ -71,14 +59,15 @@ namespace Scavanger
                 {
                     return false;
                 }
-                coordList.Add(key: inChar.characterCoord.GetHashCode(), value: inChar.GetName());
+                coordDict.Add(key: inChar.characterCoord.GetHashCode(), value: inChar.GetName());
+                charList.Add(inChar);
                 return true;
             }
 
             public string FetchSimbol(int coordInX, int coordInY)
             {
                 Coordinate coord = new Coordinate(coordInX, coordInY);
-                coordList.TryGetValue(coord.GetHashCode(), out string value);
+                coordDict.TryGetValue(coord.GetHashCode(), out string value);
                 return value;
             }
         }

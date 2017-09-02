@@ -17,10 +17,10 @@ namespace Scavanger
 
         public void Render()
         {
-            //Console.Clear();
-            for(int y = 0; y < land.coordLand.GetYMax(); y++)
+            Console.SetCursorPosition(0, 0);
+            for (int y = 0; y < land.coordLand.GetYMax(); y++)
             {
-                for(int x = 0; x < land.coordLand.GetXMax(); x++)
+                for (int x = 0; x < land.coordLand.GetXMax(); x++)
                 {
                     Console.Write(land.FetchSimbol(x, y));
                 }
@@ -28,7 +28,7 @@ namespace Scavanger
             }
         }
 
-        public void Update(ConsoleKey keyPress)
+        public void Update()
         {
 
         }

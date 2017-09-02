@@ -19,7 +19,8 @@ namespace Scavanger
 
         public override int GetHashCode()
         {
-            return Convert.ToInt32(X + "" + Y);
+            //Added 0 so that x=11 y=5 (115) is not the sam as x=1 y=15 (115). Now it is(1105 vs. 1015)
+            return Convert.ToInt32(X + "" + 0 + Y);
         }
 
         public override string ToString()
@@ -45,7 +46,7 @@ namespace Scavanger
             {
                 return false;
             }
-            else if (inLand.coordList.ContainsKey(inChar.characterCoord.GetHashCode()))
+            else if (inLand.coordDict.ContainsKey(inChar.characterCoord.GetHashCode()))
             {
                 return true;
             }
