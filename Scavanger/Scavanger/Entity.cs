@@ -51,8 +51,6 @@ namespace Scavanger
                 }
             }
 
-
-
             public bool Add(Character inChar)
             {
                 if (coordLand.Collision(inChar, this))
