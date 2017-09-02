@@ -13,7 +13,7 @@ namespace Scavanger
             private string name;
             public Coordinate characterCoord = new Coordinate();
 
-            public Character(string inName)
+            public Character(string inName, int coordXIn = 0, int coordInY = 0)
             {
                 name = inName;
             }
@@ -57,6 +57,7 @@ namespace Scavanger
                 {
                     return false;
                 }
+                coordDict.Remove(key: inChar.characterCoord.GetHashCode());
                 coordDict.Add(key: inChar.characterCoord.GetHashCode(), value: inChar.GetName());
                 charList.Add(inChar);
                 return true;
